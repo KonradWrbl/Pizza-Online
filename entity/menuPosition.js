@@ -25,6 +25,11 @@ const menuPosition = new EntitySchema({
             type: "one-to-many",
             inverseSide: "menu_position",
             cascade: true,
+        },
+        order: {
+            target: "order",
+            type: "many-to-one",
+            inverseSide: "menu_positions"
         }
 
     }

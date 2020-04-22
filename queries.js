@@ -20,11 +20,25 @@ const connect = async () => {
 }
 
 
-const getMenuPositions = async (request, response) => {
+const getMenuPositions = async () => {
     const connection = await connect();
     return connection.getRepository("menu_position").find({
         relations: ["custom_ingredients", "discounts"]
     });
+}
+
+const getOrders = async () => {
+    const connection = await connect();
+    return connection.getRepository("order").find({
+        relations: ["menu_positions", "menu_positions.custom_ingredients", "menu_positions.discounts"],
+    })
+}
+
+const getData = async () => {
+    const connection = await connect();
+    return connection.getRepository("client").find({
+        relations: ["orders", "orders.menu_positions", "orders.menu_positions.custom_ingredients", "orders.menu_positions.discounts"],
+    })
 }
 
 const addMenuPosition = async () => {
@@ -42,5 +56,7 @@ const addMenuPosition = async () => {
 
 module.exports = {
     getMenuPositions,
+    getOrders,
+    getData,
     addMenuPosition
 }

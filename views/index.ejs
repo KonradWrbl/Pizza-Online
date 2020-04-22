@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
     <body>
@@ -47,57 +48,64 @@
 
 
         <div class='container'>
-            <h1>Wybierz klienta</h1>
+            <h1>Klienci</h1>
             <table class='table table-hover'>
                 <thead>
                     <tr>
                         <th>Imie</th>
                         <th>Nazwisko</th>
+                        <th>Miasto</th>
                     </tr>
                 </thead>
                 <tbody class='clients'>
+                    <% cli.forEach(function(el) { %>
+                        <tr>
+                            <td><%= el.name %> </td>
+                            <td><%= el.surname %></td>
+                            <td><%= el.city %></td>
+                        </tr>
+                    <% }) %>
                 </tbody>
             </table>
             <button type="button" class="btn btn-dark add-client" data-toggle="modal" data-target="#addClient">Dodaj klienta</button>
 
+
+            <% cli.forEach(function(ord) { %>
             <h1>Zamówienia</h1>
-            <table class='table table-hover'>
-                <thead>
-                    <tr>
-                        <th>ID zamówienia</th>
-                        <th>ID klienta</th>
-                        <th>data</th>
-                    </tr>
-                </thead>
-                <tbody class='clients'>
-                </tbody>
-            </table>
+            <h3>Klient: <%= ord.name %> <%= ord.surname %>, <%= ord.city %> ul.<%= ord.street %> <%= ord.home_no %></h3>
             <button type="button" class="btn btn-dark add-client" data-toggle="modal" data-target="#addClient">Dodaj zamówienia</button>
 
-
-            <table class='table table-hover'>
-                <thead>
-                    <tr>
-                        <th>ID zamówienia</th>
-                        <th>ID klienta</th>
-                        <th>data</th>
-                        <th>coś tam</th>
-                    </tr>
-                </thead>
-                <% pos.forEach(function(el) { %>
-                    <tr>
-                        <th><%= el.name %></th>
-                        <th><%= el.size %></th>
-                        <th><%= JSON.stringify(el.custom_ingredients) %></th>
-                        <th>
-                            <% el.discounts.forEach(function(it) { %> <p><%= it.name %></p> <% }) %>
-                        </%>
-                    </tr>
-
+            <div class="orders">
+                <% ord.orders.forEach(function(el) { %>
+                    <div class='card'>
+                        <div class="card-header">
+                            <p>ID: <%= el.id %>, <%= el.date %></p>
+                        </div>
+                        <div class="order card-body">
+                            <ul class="list-group list-group-flush">
+                                <% el.menu_positions.forEach(function(it) { %>
+                                    <li class="list-group-item">
+                                        <div>
+                                            <div><b><%= it.name %></b></div>
+                                                <% it.custom_ingredients.forEach(function(j) { %>
+                                                    <div>+ <%= j.name %></div>
+                                                <% }) %>
+                                            <div>
+                                                Promocje:
+                                                <% it.discounts.forEach(function(j) { %>
+                                                    <div>- <%= j.name %></div>
+                                                <% }) %>
+                                            </div>
+                                        </div>
+                                    </li>
+                                <% }) %>
+                            </ul>
+                        </div>
+                    </div>
                 <% }) %>
-                <tbody class='clients'>
-                </tbody>
-            </table>
+            </div>
+            <% }) %>
+
 
         </div>
 

@@ -20,9 +20,11 @@ const order = new EntitySchema({
         },
         menu_positions: {
             target: "menu_position",
-            type: "many-to-one",
+            type: "one-to-many",
             inverseSide: "order",
-        }
+            cascade: true,
+        },
+
     }
 })
 

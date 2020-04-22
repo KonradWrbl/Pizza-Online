@@ -6,10 +6,11 @@ app.engine('html', require('ejs').renderFile)
 
 app.use(express.static('./views'))
 
-app.get('/', async (_, res) => {
-    const menu_position = await db.getMenuPositions()
-    res.render('index.ejs', {pos: menu_position})
-    console.log(menu_position);
+app.get('/', async (req, res) => {
+    const order = await db.getOrders()
+    const clients = await db.getData()
+    res.render('index.ejs', { cli: clients })
+    console.log(clients);
 })
 db.addMenuPosition()
 

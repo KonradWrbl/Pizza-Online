@@ -10,3 +10,17 @@
     height: 100px;
     background-color: red;
 }
+
+.orders {
+    margin: 10px 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.order {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
